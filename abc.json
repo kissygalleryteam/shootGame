@@ -1,0 +1,14 @@
+{
+    "name": "shootGame",
+    "version": "1.0",
+    "desc": "",
+    "cover": "",
+    "tag":"",
+    "author": {
+        "name": "xiaowuming",
+        "email": "xiaowuming@gmail.com",
+        "page": ""
+    },
+    "type": "kissy-gallery",
+    "type-url": "http://gallery.kissyui.com/guide"
+}
