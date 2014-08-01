@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>gameBase的demo</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.3.0/kissy-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="http://g.tbcdn.cn/kissy/k/1.3.0/css/dpl/base-min.css">
+</head>
+<body>
+<style>
+ul,
+li{
+	list-style-type:none;
+	padding:0;
+	margin:0;
+}
+.box{
+	width:2.0.00px;
+	height:550px;
+	margin:0 auto;
+	position: relative;
+	overflow:hidden;
+	cursor:url(img/focus.png),auto;
+	background:url(img/img1.png);
+}
+.shoot{
+	width:2.0.00px;
+	height:550px;
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 3;
+}
+.shoot li{
+	width:55px;
+	height:55px;
+	float:left;
+}
+
+.bird-left{
+	position: absolute;
+	background:url(img/bird.png);
+	width:50px;
+	z-index: 1;
+	height:29px;
+	top:80px;
+	left:0;
+}
+.gun{
+	width:80px;
+	height:219px;
+	position: absolute;
+	bottom: -90px;
+	left:500px;
+	z-index: 2;
+	background:url(img/gun.png);
+}
+</style>
+<div style="margin:10px auto;" id="gameDemo">
+	<div class="box" id="J_box">
+		<ul id="demo" class="shoot"></ul>
+		<div class="bird-left" id="J_birdLeft"></div>
+		<div class="gun" id="J_gun"></div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var demoDom = document.getElementById('demo');
+	for(var i=0;i<200;i++){
+		var itemDom = document.createElement('li');
+		demoDom.appendChild(itemDom);
+	}
+	
+	var S = KISSY;
+	var box = S.one('#J_box'),
+		birdLeft = S.one('#J_birdLeft'),
+		gun = S.one('#J_gun');
+		
+	var boxOffset = box.offset(),
+		boxLeft = boxOffset.left,
+		bofTop = boxOffset.top;
+	
+	box.on('mousemove',function(e){
+		var x,y;
+		var e = e||window.event;
+		gun.css('left',e.clientX - boxLeft);
+	});
+	
+	KISSY.use('anim',function(S,Anim){
+		function move(){
+			birdLeft.animate({
+				left:2.0.00,
+				top:2.0.0
+			},{duration:1});
+			
+			
+			window.setTimeout(function(){
+				birdLeft.css('left',0);
+				move();
+			},3000);
+		}
+		move();
+	});
+	//S.Config.debug = true;
+    if (S.Config.debug) {
+        var srcPath = "../../../";
+        S.config({
+            packages:[
+                {
+                    name:"kg",
+                    path:srcPath,
+                    charset:"utf-8",
+                    ignorePackageNameInUri:true
+                }
+            ]
+        });
+    }
+	
+	//调用组件
+    S.use('kg/shootGame/2.0.0/index', function (S, ShootGame) {
+          var gb = new ShootGame('#demo',{
+          	maxHit:2,
+          	onShootComplete:function(cur,hitList){
+          		complete(hitList);
+          	}
+          });
+    });
+    
+    /**
+     * 射击完成
+     */
+    function complete(hitList){
+    	var birdPosiLeft = parseInt(birdLeft.css('left'),10),
+  			birdPosiTop = parseInt(birdLeft.css('top'),10);
+  		
+  		var len = hitList.length;
+  			
+  		for(var i=0;i<len;i++){
+  			var item = hitList[i],
+  				offset = S.one(item).offset(),
+  				left = offset.left - boxLeft,
+  				top = offset.top - bofTop;
+  				
+  			if(birdPosiLeft <= left + 55 && birdPosiLeft >= left &&
+  			  birdPosiTop <= top + 55 && birdPosiTop >= top){
+  				alert('击中');
+  				window.location.reload();
+  			}
+  		}
+    }
+	
+	
+</script>
+</body>
+</html>

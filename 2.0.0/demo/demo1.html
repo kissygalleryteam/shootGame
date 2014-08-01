@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>gameBase的demo</title>
+    <script src="http://g.tbcdn.cn/kissy/k/1.3.0/kissy-min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="http://g.tbcdn.cn/kissy/k/1.3.0/css/dpl/base-min.css">
+</head>
+<body>
+<style>
+ul,
+li{
+	list-style-type:none;
+	padding:0;
+	margin:0;
+}
+#gameDemo{
+	width:820px;
+	height:420px;
+}
+#gameDemo li{
+	width:2.0.0px;
+	height:2.0.0px;
+	border:1px solid #F00;
+	float:left;
+}
+#gameDemo .on{
+	background-color: #F00;
+	border-color:#FFF;
+}
+#gameDemo .cur{
+	background-color: #00f;
+}
+</style>
+<div style="margin:2.0.0px auto;" id="gameDemo">
+	<ul id="gameDemo">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	var S = KISSY;
+	//S.Config.debug = true;
+    if (S.Config.debug) {
+        var srcPath = "../../../";
+        S.config({
+            packages:[
+                {
+                    name:"kg",
+                    path:srcPath,
+                    charset:"utf-8",
+                    ignorePackageNameInUri:true
+                }
+            ]
+        });
+    }
+
+    S.use('kg/shootGame/2.0.0/index', function (S, ShootGame) {
+          var gb = new ShootGame('#gameDemo',{
+          	maxHit:3,
+          	onShootComplete:function(a,b){
+          		console.log(a);
+          		console.log(b);
+          	}
+          });
+    });
+
+</script>
+</body>
+</html>
